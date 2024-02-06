@@ -3,11 +3,11 @@ import json
 import traceback
 import pandas as pd
 from dotenv import load_dotenv
-from mcq_Genrator import read_file,get_table_data
+from src.mcq_generator.utils import read_file,get_table_data
 import streamlit as st
 from langchain.callbacks import get_openai_callback
-from mcq_Generator.mcq_generator import generate_evaluate_chain
-from mcq_Genrator.logger import logging
+from src.mcq_generator.mcq_generator import generate_evaluate_chain
+from src.mcq_generator.logger import logging
 
 #loading json file
 with open('Response.json', 'r') as file:
@@ -19,9 +19,9 @@ st.title("MCQs Creator Application with LangChain 🦜⛓️")
 
 
 with st.form("user input"):
-    st.file_uploader("upload pdf or text")
+    uploaded_file = st.file_uploader("upload pdf or text")
 
-    st.number_input("no of mcq's", min_value=3, max_value=50)
+    mcq_count = st.number_input("no of mcq's", min_value=3, max_value=50)
 
     subject=st.text_input("Insert Subject",max_chars=20)
 
